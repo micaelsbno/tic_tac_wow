@@ -203,6 +203,12 @@ document.querySelector('.selector').addEventListener('click', function(event){
   selectScreen.chooseOwen(event)
 })
 
+document.querySelector('.reset').addEventListener('click',function(){
+  localStorage.removeItem('player1Score')
+  localStorage.removeItem('player2Score')
+  playerScore[0].textContent = 0;
+  playerScore[1].textContent = 0;
+})
 
 document.querySelector('.wrapper').addEventListener('click', function(event){
   if (event.target.classList.contains('box')) {
