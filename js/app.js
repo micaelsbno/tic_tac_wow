@@ -1,11 +1,3 @@
-//user choose playerBadge wilson picture
-//user2 choose playerBadge wilson picture
-
-//make playerBadge wilson class with BG to the grid, when clicked change style of the div to playerBadge wilson
-//create function to calculate rows of playerBadge wilson
-//make function to add playerBadge wilson picture
-
-
 var playNumber = 0;
 var currentPlayer = 0;
 var playerScore = document.querySelectorAll('.player-score')
