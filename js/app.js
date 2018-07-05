@@ -7,23 +7,49 @@
 
 
 var playNumber = 0;
+var currentPlayer = 0;
 
 var boxes = document.querySelectorAll('.box');
+var sides = document.querySelectorAll('.sidebar');
 
-var playerOneBadge = 'owen1'
-var playerTwoBadge = 'owen2'
-var playerBadge = 0;
+//var playerBadge = 0;
+var playerBadges = [];
+
+
+var selectScreen = {
+  player: document.querySelectorAll('.selector__title'),
+  chooseOwen: function(event){
+    playerBadges.push(event.target.classList[1])
+    selectScreen.player[0].classList.add('fade')
+    setTimeout(function(){selectScreen.player[0].classList.add('hidden')},300)
+    setTimeout(function(){selectScreen.player[1].classList.toggle('hidden')},300)
+    setTimeout(function(){selectScreen.player[1].classList.toggle('fade')},310)
+    event.target.style = "opacity: 0.4"
+    if (playerBadges.length === 2) {
+      selectScreen.setBoard()
+    }
+  },
+  setBoard: function(){
+    document.querySelector('section').classList.add('fade')
+    setTimeout(function(){document.querySelector('section').classList.add('hidden')}, 300)
+    setTimeout(function(){document.querySelector('main').classList.toggle('hidden')}, 310)
+    setTimeout(function(){document.querySelector('main').classList.toggle('fade')}, 900)
+    setTimeout(function(){document.querySelector('footer').classList.toggle('hidden')}, 300)
+    setTimeout(function(){document.querySelector('footer').classList.toggle('fade')}, 900)
+  }
+}
+
 
 
 var match = {
-  checkRows: function(playerBadge){
+  checkRows: function(){
     var k = 0
     for (i = 0; i < 3; i++) {
       var row = []
       
       for (j = 0; j < 3; j++) {
-        if (boxes[k + j].classList.contains(playerBadge)) {
-          row.push(playerBadge);
+        if (boxes[k + j].classList.contains(playerBadges[currentPlayer])) {
+          row.push(playerBadges[currentPlayer])
         }
       }
 
@@ -33,14 +59,14 @@ var match = {
       k += 3
     }
   },
-  checkColumns: function(playerBadge){
+  checkColumns: function(){
     var l = 0;
     for (m = 0; m < 3; m++){
       var row = []
       
       for (var n = 0; n < 9; n += 3) {
-        if (boxes[n + l].classList.contains(playerBadge)) {
-          row.push(playerBadge);
+        if (boxes[n + l].classList.contains(playerBadges[currentPlayer])) {
+          row.push(playerBadges[currentPlayer])
         }
       }
       if (row.length === 3) {
@@ -49,12 +75,12 @@ var match = {
       l += 1
     }
   },
-  checkDiagonalToLeft: function(playerBadge){  
-    var line = [];
+  checkDiagonalToLeft: function(){  
+    var line = []
     
     for (i = 2; i < 8; i+=2) {
-      if (boxes[i].classList.contains(playerBadge)){
-        line.push(playerBadge)
+      if (boxes[i].classList.contains(playerBadges[currentPlayer])){
+        line.push(playerBadges[currentPlayer])
       }   
     }
 
@@ -62,12 +88,12 @@ var match = {
       match.addScore()
     }
   }, 
-  checkDiagonalToRight: function(playerBadge){
+  checkDiagonalToRight: function(){
     var line = [];
     
     for (i = 0; i <= 8; i+=4) {
-      if (boxes[i].classList.contains(playerBadge)){
-        line.push(playerBadge)
+      if (boxes[i].classList.contains(playerBadges[currentPlayer])){
+        line.push(playerBadges[currentPlayer])
       }   
     }
 
@@ -75,83 +101,107 @@ var match = {
       match.addScore()
     }
   },
-  checkMatch: function(playerBadge){
-    match.checkRows(playerBadge)
-    match.checkColumns(playerBadge)
-    match.checkDiagonalToLeft(playerBadge)
-    match.checkDiagonalToRight(playerBadge)
+  checkMatch: function(){
+    match.checkRows()
+    match.checkColumns()
+    match.checkDiagonalToLeft()
+    match.checkDiagonalToRight()
   },
   addScore: function(){
     boxes.forEach(function(box){box.classList.add('taken')})
     var playerScore = document.querySelectorAll('.player-score')
+    var hundredOwens = setInterval(endGame.createOwen, 20)
+    setInterval(function(){clearInterval(hundredOwens)}, 1000)
     if (playNumber % 2 === 0) {
       playerScore[1].textContent = Number(playerScore[1].textContent) + 1
+      return hundredOwens
     } else {
       playerScore[0].textContent = Number(playerScore[0].textContent) + 1
+      return hundredOwens
     }
   },
 }
 
-function addplayerBadge(event){
-  if (playNumber % 2 === 0) {
-    var playerBadge = playerOneBadge;
-  } else {
-    var playerBadge = playerTwoBadge;
-  }
-  if (!event.target.classList.contains('taken')){
-  event.target.classList.add(playerBadge)
-  event.target.classList.add('taken')
-  playNumber += 1;
-  playWow()
-  match.checkMatch(playerBadge)
-  } 
+var plays = {
+  addplayerBadge: function(event){
+    if (!event.target.classList.contains('taken')){
+    event.target.classList.add(playerBadges[currentPlayer])
+    event.target.classList.add('taken')
+    playNumber += 1;
+    plays.playWow()
+    match.checkMatch(playerBadges[currentPlayer])
+    plays.changePlayer()
+
+    } 
+  },
+  changePlayer: function(){
+    if (playNumber % 2 === 0) {
+      currentPlayer = 0
+    } else {
+      currentPlayer = 1
+    }
+    if (currentPlayer === 0){
+      document.querySelectorAll('.sidebar')[0].classList.remove('fade')
+      document.querySelectorAll('.sidebar')[1].classList.add('fade')
+    } else {
+      document.querySelectorAll('.sidebar')[1].classList.remove('fade')
+      document.querySelectorAll('.sidebar')[0].classList.add('fade')  
+    }
+    
+    
+  },
+  playWow: function(){
+    var randomWow = Math.floor(Math.random() * 14);
+    document.querySelectorAll('audio')[randomWow].play()
+  },
 }
 
-function playWow(){
-  var randomWow = Math.floor(Math.random() * 9);
-  document.querySelectorAll('audio')[randomWow].play()
+var endGame = {
+
+  resetGame: function(){
+    boxes.forEach(function(box){
+      playNumber = 0
+      plays.changePlayer()
+      box.classList.add('fade')
+      setTimeout(
+        function(){
+          box.className = 'box';
+          box.classList.remove('fade')
+        }, 600)
+    })
+    document.querySelector('.owin').innerHTML = ''
+  },
+  createOwen: function (){
+    plays.playWow()
+    randomOne = Math.floor((Math.random() * 100) + 1)
+    randomTwo = Math.floor((Math.random() * 100) + 1)
+    randomThree = Math.floor((Math.random() * 16) + 4)
+    randomFour = Math.floor((Math.random() * 360) + 1)
+    var littleOwen = document.createElement('div')
+    littleOwen.style = "position: fixed;" + "top: " + randomOne + "vh;" + "right: " + randomTwo + "vw; background: url('./img/owin.png'); width: " + randomThree + "vh; height: " + randomThree + "vh; background-size: cover; transition: all 1s ease;" + "transform: rotate(" + randomFour + "deg);" 
+    document.querySelector('.owin').appendChild(littleOwen)
+    setTimeout(function(){
+      randomOne = Math.floor((Math.random() * 100) + 1)
+      randomTwo = Math.floor((Math.random() * 100) + 1)      
+      randomFour = Math.floor((Math.random() * 360) + 1)
+      randomThree = Math.floor((Math.random() * 16) + 4)
+      littleOwen.style = "position: fixed;" + "top: " + randomOne + "vh;" + "right: " + randomTwo + "vw; background: url('./img/owin.png'); width: " + randomThree + "vh; height: " + randomThree + "vh; background-size: cover; transition: all 1s ease;" + "transform: rotate(" + randomFour + "deg);"
+    }, 200)
+  },
 }
 
-function resetGame(){
-  boxes.forEach(function(box){
-    playNumber = 0
-    box.classList.add('fade')
-    setTimeout(
-      function(){
-        box.className = 'box';
-        box.classList.remove('fade')
-      }, 600)
-  })
-}
-
-function createOwen (){
-  randomOne = Math.floor((Math.random() * 100) + 1);
-  randomTwo = Math.floor((Math.random() * 100) + 1);
-  randomThree = Math.floor((Math.random() * 16) + 4);
-  randomFour = Math.floor((Math.random() * 360) + 1);
-  var littleOwen = document.createElement('div')
-  littleOwen.style = "position: fixed;" + "top: " + randomOne + "vh;" + "right: " + randomTwo + "vw; background: url('./img/owin.png'); width: " + randomThree + "vh; height: " + randomThree + "vh; background-size: cover; transition: all 1s ease;" + "transform: rotate(" + randomFour + "deg);" 
-  document.querySelector('main').appendChild(littleOwen)
-  setTimeout(function(){
-    randomOne = Math.floor((Math.random() * 100) + 1);
-    randomTwo = Math.floor((Math.random() * 100) + 1);      
-    randomFour = Math.floor((Math.random() * 360) + 1);
-    randomThree = Math.floor((Math.random() * 16) + 4);
-    littleOwen.style = "position: fixed;" + "top: " + randomOne + "vh;" + "right: " + randomTwo + "vw; background: url('./img/owin.png'); width: " + randomThree + "vh; height: " + randomThree + "vh; background-size: cover; transition: all 1s ease;" + "transform: rotate(" + randomFour + "deg);"
-  }, 200)
-}
-
-var hundredOwens = setInterval(createOwen, 100);
-
-function stopOwens(){
-  clearInterval(hundredOwens)
-}
+document.querySelector('.selector').addEventListener('click', function(event){
+  if (event.target.classList.contains('option'))
+  selectScreen.chooseOwen(event)
+})
 
 
 document.querySelector('.wrapper').addEventListener('click', function(event){
   if (event.target.classList.contains('box')) {
-    addplayerBadge(event);
+    plays.addplayerBadge(event);
   }
 });
 
-document.querySelector('.fa-undo').addEventListener('click', resetGame)
+document.querySelector('.owin').addEventListener('click', endGame.resetGame)
+
+document.querySelector('.fa-undo').addEventListener('click', endGame.resetGame)

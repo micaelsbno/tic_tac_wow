@@ -5,12 +5,51 @@
 }
 
 header {
+  display: flex;
   text-align: center;
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  background-color: #345144;
+  height: 2px;
 }
 
 h2 {
   font-weight: 200;
   font-size: 2em;
+  width: 900px;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.selector__title {
+  margin-right: 10px;
+}
+
+.option {
+  width: 96px;
+  height: 96px;
+  margin: 2px;
+  transition: all 1s ease;
+}
+
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
 }
 
 body {
@@ -23,7 +62,7 @@ body {
 }
 
 .wrapper {
-  margin: 0 auto;
+  margin: 0 40px;
   display: flex;
   width: 300px;
   flex-wrap: wrap;
@@ -35,10 +74,7 @@ body {
   height: 100px;
   margin: 0 5px 5px 0;
 }
-/*
-.wrapper div:first-child {
-  margin-left: 0px;
-}*/
+
 
 footer {
   text-align: center;
@@ -49,7 +85,7 @@ footer {
 }
 
 .fa-undo:hover {
-  transform: rotate(360deg);
+  transform: rotate(-360deg);
   transition: transform 1000ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -95,10 +131,26 @@ footer {
   transition: opacity 300ms ease;
 }
 
-.owen1{
-  background: url('../img/owen_1.png');
+.owen1 {
+  background: url('../img/owen1.jpg');
 }
 
-.owen2{
-  background: url('../img/owen_2.png');
+.owen2 {
+  background: url('../img/owen2.jpg');
+}
+
+.owen3 {
+  background: url('../img/owen3.png');
+}
+
+.owen4 {
+  background: url('../img/owen4.png');
+}
+
+.owen5 {
+  background: url('../img/owen5.jpg');
+}
+
+.owen6 {
+  background: url('../img/owen6.jpg');
 }
