@@ -8,6 +8,7 @@
 
 var playNumber = 0;
 var currentPlayer = 0;
+var playerScore = document.querySelectorAll('.player-score')
 
 var boxes = document.querySelectorAll('.box');
 var sides = document.querySelectorAll('.sidebar');
@@ -15,6 +16,8 @@ var sides = document.querySelectorAll('.sidebar');
 //var playerBadge = 0;
 var playerBadges = [];
 
+playerScore[0].textContent = localStorage.getItem('player1Score');
+playerScore[1].textContent = localStorage.getItem('player2Score');
 
 var selectScreen = {
   player: document.querySelectorAll('.selector__title'),
@@ -106,10 +109,11 @@ var match = {
     match.checkColumns()
     match.checkDiagonalToLeft()
     match.checkDiagonalToRight()
+    endGame.saveGame()
   },
   addScore: function(){
     boxes.forEach(function(box){box.classList.add('taken')})
-    var playerScore = document.querySelectorAll('.player-score')
+    
     var hundredOwens = setInterval(endGame.createOwen, 20)
     setInterval(function(){clearInterval(hundredOwens)}, 1000)
     if (playNumber % 2 === 0) {
@@ -188,6 +192,10 @@ var endGame = {
       littleOwen.style = "position: fixed;" + "top: " + randomOne + "vh;" + "right: " + randomTwo + "vw; background: url('./img/owin.png'); width: " + randomThree + "vh; height: " + randomThree + "vh; background-size: cover; transition: all 1s ease;" + "transform: rotate(" + randomFour + "deg);"
     }, 200)
   },
+  saveGame: function(){
+    localStorage.setItem('player1Score', playerScore[0].textContent);
+    localStorage.setItem('player2Score', playerScore[1].textContent);
+  }
 }
 
 document.querySelector('.selector').addEventListener('click', function(event){
