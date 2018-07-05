@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  color: #4c0a03;
+}
+
+header {
+  text-align: center;
+}
+
+h2 {
+  font-weight: 200;
+  font-size: 2em;
+}
+
+body {
+  background-color: #f9c760;
+}
+
+.container {
+  margin: 0 auto;
+  width: 900px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  width: 300px;
+  flex-wrap: wrap;
+}
+
+.wrapper div {
+  border: dashed 2px #345144;
+  width: 95px;
+  height: 100px;
+  margin: 0 5px 5px 0;
+}
+/*
+.wrapper div:first-child {
+  margin-left: 0px;
+}*/
+
+footer {
+  text-align: center;
+}
+
+.fa-undo {
+  margin: 20px 0;
+}
+
+.fa-undo:hover {
+  transform: rotate(360deg);
+  transition: transform 1000ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.score__whitespace {
+  width: 75%;
+}
+
+.score__block {
+  width: 25%;
+  text-align: center;
+}
+
+.player-name {
+  text-align: left;
+  width: 75%;
+}
+
+.player-score {
+  width: 25%;
+  text-align: center;
+}
+
+.box {
+  transition: opacity 600ms ease;
+
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.show {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.owen1{
+  background: url('../img/owen_1.png');
+}
+
+.owen2{
+  background: url('../img/owen_2.png');
+}
