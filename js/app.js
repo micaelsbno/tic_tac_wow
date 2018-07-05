@@ -42,8 +42,6 @@ var selectScreen = {
   }
 }
 
-
-
 var match = {
   checkRows: function(){
     var k = 0
@@ -152,7 +150,6 @@ var plays = {
       document.querySelectorAll('.sidebar')[0].classList.add('fade')  
     }
     
-    
   },
   playWow: function(){
     var randomWow = Math.floor(Math.random() * 14);
@@ -217,5 +214,4 @@ document.querySelector('.wrapper').addEventListener('click', function(event){
 });
 
 document.querySelector('.owin').addEventListener('click', endGame.resetGame)
-
 document.querySelector('.fa-undo').addEventListener('click', endGame.resetGame)
