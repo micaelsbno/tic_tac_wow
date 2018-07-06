@@ -1,5 +1,5 @@
 
-<h1 style="text-align: center;"> TIC TAC **WOW**</h1>
+<h1 style="text-align: center;"> TIC TAC WOW</h1>
 
 ###### The TIC TAC TOE or Owen Wilson dose that you needed in your life.
 
