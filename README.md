@@ -6,7 +6,7 @@
 Do you like Tic Tac Toe? ***No?*** Great! It means you probably like Owen Wilson. This game brings you the WoWest Wowen Wilson experience you can find in a Tic Tac Toe Game. Enjoy countless games with or without your friends. 
 **Doesn't matter because you'll probably make new ones if you invite anyone to play it with you.*
 
-<h3><a href=""style="text-align: center;">  Play it here</h3></a>
+<h3><a href="https://micaelsbno.github.io/tic_tac_wow/" style="text-align: center;">  Play it here</h3></a>
 
 ##### Features
 - Choose your WOwen
